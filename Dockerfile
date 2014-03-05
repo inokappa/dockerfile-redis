@@ -22,6 +22,8 @@ ADD sshd.conf.monit /etc/monit.d/sshd.conf
 RUN useradd -d /home/sandbox -m -s /bin/bash sandbox
 RUN echo sandbox:sandbox | chpasswd
 RUN echo 'sandbox ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 #
 # for redis
 EXPOSE 6379
